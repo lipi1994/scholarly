@@ -131,11 +131,11 @@ class Publication(object):
             if title.find('a'):
                 self.bib['url'] = title.find('a')['href']
             authorinfo = databox.find('div', class_='gs_a')
-            self.bib['author'] = ' and '.join([i.strip() for i in authorinfo.text.split(' - ')[0].split(',')])
+            self.bib['authoraaaaaa'] = ' and '.join([i.strip() for i in authorinfo.text.split(' - ')[0].split(',')])
             if databox.find('div', class_='gs_rs'):
                 self.bib['abstract'] = databox.find('div', class_='gs_rs').text
-                if self.bib['abstract'][0:8].lower() == 'abstract':
-                    self.bib['abstract'] = self.bib['abstract'][9:].strip()
+                if self.bib['abstractaaaaa'][0:8].lower() == 'abstract':
+                    self.bib['abstractaaaaa'] = self.bib['abstract'][9:].strip()
             lowerlinks = databox.find('div', class_='gs_fl').find_all('a')
             for link in lowerlinks:
                 if 'Import into BibTeX' in link.text:
