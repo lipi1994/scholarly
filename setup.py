@@ -16,7 +16,7 @@ setup(
 
     author = 'Steven A. Cholewiak',
     author_email = 'steven@cholewiak.com',
-    url = 'https://github.com/OrganicIrradiation/scholarly',
+    url = 'https://github.com/lipi1994/scholarly',
     download_url = 'https://github.com/lipi1994/scholarly/archive/master.zip',
     keywords = ['Google Scholar', 'academics', 'citations'],
     classifiers = [
