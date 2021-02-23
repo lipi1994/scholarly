@@ -168,7 +168,6 @@ class Publication(object):
             return []
 
     def __str__(self):
-	print ("bla")
         return pprint.pformat(self.__dict__)
 
 
@@ -261,4 +260,5 @@ def search_author_custom_url(url):
 
 if __name__ == "__main__":
     author = next(search_author('Steven A. Cholewiak')).fill()
+    print('bla')	
     print(author)
