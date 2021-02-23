@@ -91,36 +91,12 @@ def _search_scholar_soup(soup):
         else:
             break
 
-
-def _search_citation_soup(soup):
-    """Generator that returns Author objects from the author search page"""
-    while True:
-        for row in soup.findAll('div', 'gsc_1usr'):
-            yield Author(row)
-        nextbutton = soup.find(class_='gs_btnPR gs_in_ib gs_btn_half gs_btn_srt')
-        if nextbutton and 'disabled' not in nextbutton.attrs:
-            next_url = nextbutton['onclick'][17:-1]
-            next_url = codecs.getdecoder("unicode_escape")(next_url)[0]
-            soup = _get_soup(next_url)
-        else:
-            break
-
-
 class Publication(object):
     """Returns an object for a single publication"""
     def __init__(self, __data, pubtype=None):
         self.bib = dict()
         self.source = pubtype
-        if self.source == 'citations':
-            self.bib['title'] = __data.find('a', class_='gsc_a_at').text
-            self.id_citations = re.findall(_CITATIONPUBRE, __data.find('a', class_='gsc_a_at')['href'])[0]
-            citedby = __data.find(class_='gsc_a_ac')
-            if citedby and not citedby.text.isspace():
-                self.citedby = int(citedby.text)
-            year = __data.find(class_='gsc_a_h')
-            if year and year.text and not year.text.isspace() and len(year.text)>0:
-                self.bib['year'] = int(year.text)
-        elif self.source == 'scholar':
+        if self.source == 'scholar':
             databox = __data.find('div', class_='gs_ri')
             title = databox.find('h3', class_='gs_rt')
             if title.find('span', class_='gs_ctu'): # A citation
