@@ -149,39 +149,7 @@ class Publication(object):
 
     def fill(self):
         """Populate the Publication with information from its profile"""
-        if self.source == 'citations':
-            url_citations = _CITATIONPUB.format(self.id_citations)
-            soup = _get_soup(url_citations)
-            self.bib['title'] = soup.find('div', id='gsc_title').text
-            if soup.find('a', class_='gsc_title_link'):
-                self.bib['url'] = soup.find('a', class_='gsc_title_link')['href']
-            for item in soup.findAll('div', class_='gs_scl'):
-                key = item.find(class_='gsc_field').text
-                val = item.find(class_='gsc_value')
-                if key == 'Authors':
-                    self.bib['author'] = ' and '.join([i.strip() for i in val.text.split(',')])
-                elif key == 'Journal':
-                    self.bib['journal'] = val.text
-                elif key == 'Volume':
-                    self.bib['volume'] = val.text
-                elif key == 'Issue':
-                    self.bib['number'] = val.text
-                elif key == 'Pages':
-                    self.bib['pages'] = val.text
-                elif key == 'Publisher':
-                    self.bib['publisher'] = val.text
-                elif key == 'Publication date':
-                    self.bib['year'] = arrow.get(val.text).year
-                elif key == 'Description':
-                    if val.text[0:8].lower() == 'abstract':
-                        val = val.text[9:].strip()
-                    self.bib['abstract'] = val
-                elif key == 'Total citations':
-                    self.id_scholarcitedby = re.findall(_SCHOLARPUBRE, val.find('a')['href'])[0]
-            if soup.find('div', class_='gsc_title_ggi'):
-                self.bib['eprint'] = soup.find('div', class_='gsc_title_ggi').a['href']
-            self._filled = True
-        elif self.source == 'scholar':
+        if self.source == 'scholar':
             bibtex = _get_page(self.url_scholarbib)
             self.bib.update(bibtexparser.loads(bibtex).entries[0])
             self._filled = True
