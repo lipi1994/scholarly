@@ -129,6 +129,7 @@ class Publication(object):
     def fill(self):
         """Populate the Publication with information from its profile"""
         if self.source == 'scholar':
+            self.affiliation = soup.find('div', class_='gsc_prf_il').text
             bibtex = _get_page(self.url_scholarbib)
             self.bib.update(bibtexparser.loads(bibtex).entries[0])
             self._filled = True
