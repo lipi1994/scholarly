@@ -17,7 +17,7 @@ setup(
     author = 'Steven A. Cholewiak',
     author_email = 'steven@cholewiak.com',
     url = 'https://github.com/OrganicIrradiation/scholarly',
-    download_url = 'https://github.com/OrganicIrradiation/scholarly/tarball/v0.2',
+    download_url = 'https://github.com/lipi1994/scholarly/archive/master.zip',
     keywords = ['Google Scholar', 'academics', 'citations'],
     classifiers = [
         'Development Status :: 3 - Alpha',
