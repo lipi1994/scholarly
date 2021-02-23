@@ -97,6 +97,7 @@ class Publication(object):
         self.bib = dict()
         self.source = pubtype
         if self.source == 'scholar':
+            self.id = re.findall(_CITATIONAUTHRE, __data('a')[0]['href'])[0]
             databox = __data.find('div', class_='gs_ri')
             title = databox.find('h3', class_='gs_rt')
             if title.find('span', class_='gs_ctu'): # A citation
@@ -107,7 +108,7 @@ class Publication(object):
             if title.find('a'):
                 self.bib['url'] = title.find('a')['href']
             authorinfo = databox.find('div', class_='gs_a')
-            self.bib['authoraaaaaa'] = ' and '.join([i.strip() for i in authorinfo.text.split(' - ')[0].split(',')])
+            self.bib['author'] = ' and '.join([i.strip() for i in authorinfo.text.split(' - ')[0].split(',')])
             if databox.find('div', class_='gs_rs'):
                 self.bib['abstract'] = databox.find('div', class_='gs_rs').text
                 if self.bib['abstract'][0:8].lower() == 'abstract':
