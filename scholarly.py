@@ -97,7 +97,9 @@ class Publication(object):
         self.bib = dict()
         self.source = pubtype
         if self.source == 'scholar':
-            self.id = re.findall(_CITATIONAUTHRE, __data('a')[0]['href'])[0]
+            affiliation = __data.find('div', class_='gsc_1usr_aff')
+            if affiliation:
+                self.affiliation = affiliation.text
             databox = __data.find('div', class_='gs_ri')
             title = databox.find('h3', class_='gs_rt')
             if title.find('span', class_='gs_ctu'): # A citation
