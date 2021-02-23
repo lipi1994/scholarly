@@ -98,8 +98,6 @@ class Publication(object):
         self.source = pubtype
         if self.source == 'scholar':
             affiliation = __data.find('div', class_='gsc_1usr_aff')
-            if affiliation:
-                self.affiliation = affiliation.text
             databox = __data.find('div', class_='gs_ri')
             title = databox.find('h3', class_='gs_rt')
             if title.find('span', class_='gs_ctu'): # A citation
@@ -129,7 +127,6 @@ class Publication(object):
     def fill(self):
         """Populate the Publication with information from its profile"""
         if self.source == 'scholar':
-            self.affiliation = soup.find('div', class_='gsc_prf_il').text
             bibtex = _get_page(self.url_scholarbib)
             self.bib.update(bibtexparser.loads(bibtex).entries[0])
             self._filled = True
